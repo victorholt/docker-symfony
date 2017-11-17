@@ -1,5 +1,5 @@
 FROM mysql
-c
+
 ENV MYSQL_ROOT_PASSWORD  123
 ENV MYSQL_DATABASE symfony_db
 ENV MYSQL_USER symfony_user
