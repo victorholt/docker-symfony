@@ -2,10 +2,8 @@
 . $(dirname "$0")/config.inc
 
 # Create our data volumn
-echo 'Creating $appname data volumn'
-docker volumn \
-    -v "$('pwd')/webapp/public":/var/www/public \
-    $appname_vpublic
+echo "Creating $appname data volumn"
+docker volume create webapp-data
 
 # Build images
 echo 'Building images'
@@ -25,10 +23,10 @@ docker run -d -p 3306:3306 --name $appname_mysql $appname_mysql_img
 
 docker run -d -p 9000:9000 --link $appname_mysql:db --link $appname_mail \
     --name $appname \
-    -v "$appname_vpublic":/var/www/public \
+    -v "webapp-data":/var/www/public \
     $appname_img
 
 docker run -d -p 80:80 --link $appname:php \
     --name $appname_nginx \
-    -v "$appname_vpublic":/var/www/public \
+    -v "webapp-data":/var/www/public \
     $appname_nginx_img

@@ -1,10 +1,8 @@
 #!/bin/bash
 . $(dirname "$0")/config.inc
 
-echo 'Creating $appname data volumn(s)'
-docker volumn \
-    -v "$('pwd')/webapp/public":/var/www/public \
-    $appname_vpublic
+echo "Creating $appname data volumn(s)"
+docker volume create webapp-data
 
 # Build images
 echo 'Building images'
@@ -23,16 +21,16 @@ docker run -d --name=$appname_mail \
 docker run -d -p 3306:3306 --name $appname_mysql $appname_mysql_img
 
 docker run -d -p 9000:9000 --link $appname_mysql:db --link $appname_mail --name $appname \
+    -v "webapp-data":/var/www/public \
     -v "$('pwd')/webapp/config":/var/www/config \
-    -v "$appname_vpublic":/var/www/public \
     -v "$('pwd')/webapp/src":/var/www/src \
     -v "$('pwd')/webapp/composer.json":/var/www/composer.json \
     -v "$('pwd')/webapp/.env.dist":/var/www/.env \
    $appname_img
 
 docker run -d -p 8080:80 --link $appname:php --name $appname_nginx \
+    -v "webapp-data":/var/www/public \
     -v "$('pwd')/webapp/config":/var/www/config \
-    -v "$appname_vpublic":/var/www/public \
     -v "$('pwd')/webapp/src":/var/www/src \
     -v "$('pwd')/webapp/composer.json":/var/www/composer.json \
     -v "$('pwd')/webapp/.env.dist":/var/www/.env \

@@ -16,4 +16,4 @@ docker rmi $appname_nginx_img
 docker rmi $appname_mysql_img
 docker rmi $appname_mail_img
 
-docker volumn rm $appname_data
+docker volume rm webapp-data
