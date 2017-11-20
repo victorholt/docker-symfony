@@ -48,8 +48,9 @@ COPY webapp/public /var/www/public/
 COPY webapp/src /var/www/src/
 COPY webapp/var /var/www/var/
 COPY webapp/.env.dist /var/www/.env
-COPY webapp/composer.json /var/www/
+COPY webapp/composer.json /dovar/www/
 COPY docker/symfony/entrypoint.sh /var/www/
+RUN chmod +x /var/www/entrypoint.sh
 
 # Setup symfony/composer
 COPY docker/symfony/setup.sh /usr/local/bin/setup
