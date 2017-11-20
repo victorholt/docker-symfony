@@ -83,4 +83,4 @@ EXPOSE 9000
 
 CMD ["php-fpm7", "-F"]
 
-ENTRYPOINT ["/var/www/entrypoint.sh"]
+#ENTRYPOINT ["/var/www/entrypoint.sh"]
