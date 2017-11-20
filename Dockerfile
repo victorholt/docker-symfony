@@ -49,6 +49,7 @@ COPY webapp/src /var/www/src/
 COPY webapp/var /var/www/var/
 COPY webapp/.env.dist /var/www/.env
 COPY webapp/composer.json /var/www/
+COPY docker/symfony/entrypoint.sh /var/www/
 
 # Setup symfony/composer
 COPY docker/symfony/setup.sh /usr/local/bin/setup
@@ -81,4 +82,4 @@ EXPOSE 9000
 
 CMD ["php-fpm7", "-F"]
 
-# ENTRYPOINT ["/var/www/entrypoint.sh"]
+ENTRYPOINT ["/var/www/entrypoint.sh"]
