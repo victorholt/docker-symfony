@@ -12,9 +12,9 @@ ADD docker/nginx/docker-nginx.conf /etc/nginx/nginx.conf
 ADD docker/nginx/docker-web.conf /etc/nginx/sites-available/webapp.conf
 RUN ln /etc/nginx/sites-available/webapp.conf /etc/nginx/sites-enabled/webapp
 
-COPY webapp/config /var/www/
-COPY webapp/public /var/www/
-COPY webapp/src /var/www/
+COPY webapp/config /var/www/config/
+COPY webapp/public /var/www/public/
+COPY webapp/src /var/www/src/
 COPY webapp/.env.dist /var/www/.env
 COPY webapp/composer.json /var/www/
 

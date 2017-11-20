@@ -5,4 +5,5 @@ cd /var/www
 /usr/local/bin/composer req admin
 chmod -R 777 /var/www/var/cache
 chmod -R 777 /var/www/var/log
+mv /var/www/._env /var/www/.env
 cc
