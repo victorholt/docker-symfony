@@ -6,4 +6,4 @@ cd /var/www
 chmod -R 777 /var/www/var/cache
 chmod -R 777 /var/www/var/log
 cc
-bin/console doctrine:update:schema --force
+bin/console doctrine:schema:update --force
