@@ -6,8 +6,22 @@ The purpose of this project is to act as an initial seed for Symfony 3.3/4.x pro
 ## Installing
 This project is built using a serious of bash scripts. However, if you do not have bash installed, you should be able to run the docker commands individually within each script.
 
+#### Update configuration
+Update the configurations in the following files
+
+* bin/config.inc
+* docker/mysql/Dockerfile (database settings)
+* docker/nginx/docker-web.conf (website/server settings)
+* docker/symfony/web-php.ini (php.ini settings)
+
 #### Build Docker Images/Containers
 `$ sh bin/build.sh`
+
+*Note:* For your personal server, consider running the bin/build-prod.sh script which removes the local volume linking and run nginx on port 80.
+
+##### Log into the *php* container and run the entry script
+`$ docker exec -it symfonyapp bash`
+`$ sh entrypoint.sh`
 
 #### Destroying Images/Containers
 `$ sh bin/destroy.sh`
