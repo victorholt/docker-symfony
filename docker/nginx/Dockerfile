@@ -12,6 +12,12 @@ ADD docker/nginx/docker-nginx.conf /etc/nginx/nginx.conf
 ADD docker/nginx/docker-web.conf /etc/nginx/sites-available/webapp.conf
 RUN ln /etc/nginx/sites-available/webapp.conf /etc/nginx/sites-enabled/webapp
 
+COPY webapp/config /var/www/
+COPY webapp/public /var/www/
+COPY webapp/src /var/www/
+COPY webapp/.env.dist /var/www/.env
+COPY webapp/composer.json /var/www/
+
 # forward request and error logs to docker log collector
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log

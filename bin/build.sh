@@ -1,18 +1,9 @@
 #!/bin/bash
-
-appname=symfonyapp
-appname_nginx=$appname"_nginx"
-appname_mysql=$appname"_mysql"
-appname_mail=$appname"_mail"
-
-appname_img=$appname"_img"
-appname_nginx_img=$appname_nginx"_img"
-appname_mysql_img=$appname_mysql"_img"
-appname_mail_img=$appname_mail"_img"
+. $(dirname "$0")/config.inc
 
 docker build -t $appname_mysql_img -f ./docker/mysql/Dockerfile .
-docker build -t $appname_nginx_img -f ./docker/nginx/Dockerfile .
 docker build -t $appname_mail_img -f ./docker/mailhog/Dockerfile .
+docker build -t $appname_nginx_img -f ./docker/nginx/Dockerfile .
 docker build -t $appname_img .
 
 docker run -d --name=$appname_mail \
@@ -21,6 +12,7 @@ docker run -d --name=$appname_mail \
  $appname_mail_img
 
 docker run -d -p 3306:3306 --name $appname_mysql $appname_mysql_img
+
 docker run -d -p 9000:9000 --link $appname_mysql:db --link $appname_mail --name $appname \
     -v "$('pwd')/webapp/config":/var/www/config \
     -v "$('pwd')/webapp/public":/var/www/public \
